@@ -12,9 +12,12 @@ public class Cull extends JavaPlugin implements org.bukkit.event.Listener {
 		
 		new BukkitRunnable() {
 			public void run() {
-				File irMain = new File("/home/MLMC/ServerTowny/plugins/InventoryRollbackPlus/backups");
+				File file = getFile();
+				String dir = file.getAbsolutePath();
+				dir = dir.substring(0, dir.lastIndexOf("/plugins"));
+				file = new File(dir + "/plugins/InventoryRollbackPlus/backups");
 				Long start = System.currentTimeMillis();
-				recurseAndDelete(irMain);
+				recurseAndDelete(file);
 				Bukkit.getServer().getLogger().info("NeoInactiveCull culling complete! Took " + (System.currentTimeMillis() - start) + "ms");
 			}
 		}.runTaskAsynchronously(this);
